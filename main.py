@@ -15,7 +15,6 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Space Invaders")
 # Define colors
 BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
 # Create player object
 player = Player(screen_width, screen_height)
 # Create enemy objects
@@ -42,6 +41,10 @@ def game_loop():
         # Check for collisions between bullets and enemies
         for bullet in bullets:
             if pygame.sprite.spritecollide(bullet, enemies, True):
+                bullets.remove(bullet)
+        # Remove bullets that are off the screen
+        for bullet in bullets.copy():
+            if bullet.rect.bottom <= 0:
                 bullets.remove(bullet)
         screen.fill(BLACK)
         player.draw(screen)
