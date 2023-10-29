@@ -13,8 +13,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y = y
     def update(self):
         self.rect.y -= 5
-    def check_collision(self, sprite_group):
-        collided_sprites = pygame.sprite.spritecollide(self, sprite_group, False)
+    def check_collision(self, sprite_group, screen_width, screen_height):
+        collided_sprites = pygame.sprite.spritecollide(self, sprite_group, True)
         for sprite in collided_sprites:
             if isinstance(sprite, Enemy):
                 # Handle collision with enemy

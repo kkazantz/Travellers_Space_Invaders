@@ -11,18 +11,31 @@ class Player(pygame.sprite.Sprite):
         self.image.fill((255, 0, 0))
         self.rect = self.image.get_rect()
         self.rect.center = (screen_width // 2, screen_height - 50)
-    def update(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        self.player_health = 3
+        self.moving_left = False
+        self.moving_right = False
+    def update(self, running):
+        if self.moving_left:
             self.rect.x -= 5
-        if keys[pygame.K_RIGHT]:
+        if self.moving_right:
             self.rect.x += 5
-    def check_collision(self, sprite_group):
-        collided_sprites = pygame.sprite.spritecollide(self, sprite_group, False)
+        # Prevent player from going off the screen
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > self.screen_width:
+            self.rect.right = self.screen_width
+        if self.player_health <= 0:
+            running = False
+        return running
+    def check_collision(self, sprite_group, screen_width, screen_height):
+        collided_sprites = pygame.sprite.spritecollide(self, sprite_group, True)
         for sprite in collided_sprites:
             if isinstance(sprite, Enemy):
                 # Handle collision with enemy
                 self.rect.center = (screen_width // 2, screen_height - 50)
-            elif isinstance(sprite, Bullet):
-                # Handle collision with bullet
-                pass
+                self.player_health -= 1
+                if self.player_health <= 0:
+                    return False
+        return True
