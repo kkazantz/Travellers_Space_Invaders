@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_RIGHT]:
             self.rect.x += 5
     def check_collision(self, sprite_group):
-        collided_sprites = pygame.sprite.spritecollide(self, sprite_group, True)
+        collided_sprites = pygame.sprite.spritecollide(self, sprite_group, False)
         for sprite in collided_sprites:
             if isinstance(sprite, Enemy):
                 # Handle collision with enemy

@@ -25,6 +25,10 @@ while running:
             running = False
     # Update game state
     all_sprites.update()
+    # Check for collisions
+    player.check_collision(all_sprites)
+    enemy.check_collision(all_sprites)
+    bullet.check_collision(all_sprites)
     # Render game graphics
     screen.fill((0, 0, 0))
     all_sprites.draw(screen)
