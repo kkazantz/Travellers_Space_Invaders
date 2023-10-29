@@ -2,8 +2,8 @@
 This file contains the Player class for the Space Invaders game.
 '''
 import pygame
-from enemy import Enemy
 from bullets import Bullet
+from enemy import Enemy
 class Player(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()

@@ -19,3 +19,6 @@ class Bullet(pygame.sprite.Sprite):
             if isinstance(sprite, Enemy):
                 # Handle collision with enemy
                 pass
+            elif isinstance(sprite, Bullet):
+                # Handle collision with bullet
+                pass
