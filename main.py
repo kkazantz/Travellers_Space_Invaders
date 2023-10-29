@@ -1,8 +1,4 @@
-'''
-This is the main file for the Space Invaders game.
-'''
 import pygame
-import sys
 from player import Player
 from enemy import Enemy
 from bullets import Bullet
@@ -13,42 +9,25 @@ screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Space Invaders")
-# Define colors
-BLACK = (0, 0, 0)
-# Create player object
+# Create game objects
 player = Player(screen_width, screen_height)
-# Create enemy objects
-enemies = pygame.sprite.Group()
-for i in range(5):
-    enemy = Enemy(100 + i * 150, 100, screen_width, screen_height)
-    enemies.add(enemy)
-# Create bullet objects
-bullets = pygame.sprite.Group()
+enemy = Enemy(100, 100, screen_width, screen_height)
+bullet = Bullet(400, 500)
+# Create sprite groups
+all_sprites = pygame.sprite.Group()
+all_sprites.add(player, enemy, bullet)
 # Game loop
-def game_loop():
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    bullet = Bullet(player.rect.centerx, player.rect.top)
-                    bullets.add(bullet)
-        player.update()
-        enemies.update()
-        bullets.update()
-        # Check for collisions between bullets and enemies
-        for bullet in bullets:
-            if pygame.sprite.spritecollide(bullet, enemies, True):
-                bullets.remove(bullet)
-        # Remove bullets that are off the screen
-        for bullet in bullets.copy():
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
-        screen.fill(BLACK)
-        player.draw(screen)
-        enemies.draw(screen)
-        bullets.draw(screen)
-        pygame.display.update()
-game_loop()
+running = True
+while running:
+    # Handle events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    # Update game state
+    all_sprites.update()
+    # Render game graphics
+    screen.fill((0, 0, 0))
+    all_sprites.draw(screen)
+    pygame.display.flip()
+# Quit the game
+pygame.quit()

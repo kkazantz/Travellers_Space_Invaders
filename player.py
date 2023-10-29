@@ -1,7 +1,9 @@
 '''
-This file contains the Player class.
+This file contains the Player class for the Space Invaders game.
 '''
 import pygame
+from enemy import Enemy
+from bullets import Bullet
 class Player(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()
@@ -15,5 +17,12 @@ class Player(pygame.sprite.Sprite):
             self.rect.x -= 5
         if keys[pygame.K_RIGHT]:
             self.rect.x += 5
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
+    def check_collision(self, sprite_group):
+        collided_sprites = pygame.sprite.spritecollide(self, sprite_group, True)
+        for sprite in collided_sprites:
+            if isinstance(sprite, Enemy):
+                # Handle collision with enemy
+                pass
+            elif isinstance(sprite, Bullet):
+                # Handle collision with bullet
+                pass

@@ -1,7 +1,8 @@
 '''
-This file contains the Bullet class.
+This file contains the Bullet class for the Space Invaders game.
 '''
 import pygame
+from enemy import Enemy
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -12,5 +13,9 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y = y
     def update(self):
         self.rect.y -= 5
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
+    def check_collision(self, sprite_group):
+        collided_sprites = pygame.sprite.spritecollide(self, sprite_group, True)
+        for sprite in collided_sprites:
+            if isinstance(sprite, Enemy):
+                # Handle collision with enemy
+                pass
