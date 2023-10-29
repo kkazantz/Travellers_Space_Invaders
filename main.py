@@ -1,3 +1,6 @@
+'''
+This file contains the main game loop for the Space Invaders game.
+'''
 import pygame
 from player import Player
 from enemy import Enemy
@@ -19,19 +22,21 @@ all_sprites.add(player, enemy, bullet)
 # Game loop
 running = True
 while running:
-    # Handle events
+    # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    # Update game state
+    # Update game objects
     all_sprites.update()
     # Check for collisions
     player.check_collision(all_sprites)
     enemy.check_collision(all_sprites)
     bullet.check_collision(all_sprites)
-    # Render game graphics
+    # Clear the screen
     screen.fill((0, 0, 0))
+    # Draw game objects
     all_sprites.draw(screen)
+    # Update the display
     pygame.display.flip()
 # Quit the game
 pygame.quit()

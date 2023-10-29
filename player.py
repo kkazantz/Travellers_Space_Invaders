@@ -22,7 +22,7 @@ class Player(pygame.sprite.Sprite):
         for sprite in collided_sprites:
             if isinstance(sprite, Enemy):
                 # Handle collision with enemy
-                pass
+                self.rect.center = (screen_width // 2, screen_height - 50)
             elif isinstance(sprite, Bullet):
                 # Handle collision with bullet
                 pass
