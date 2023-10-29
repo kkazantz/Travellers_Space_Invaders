@@ -2,8 +2,6 @@
 This file contains the Enemy class for the Space Invaders game.
 '''
 import pygame
-from bullets import Bullet
-from player import Player
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y, screen_width, screen_height):
         super().__init__()
@@ -20,7 +18,7 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.x += 2
         elif self.direction == "left":
             self.rect.x -= 2
-    def update(self, running, player):
+    def update(self, running):
         self.move()
         if self.rect.right >= self.screen_width or self.rect.left <= 0:
             self.direction = "down"
@@ -34,9 +32,4 @@ class Enemy(pygame.sprite.Sprite):
             if isinstance(sprite, Bullet):
                 # Handle collision with bullet
                 pass
-            elif isinstance(sprite, Player):
-                # Handle collision with player
-                sprite.player_health -= 1
-                if sprite.player_health <= 0:
-                    return False
         return True

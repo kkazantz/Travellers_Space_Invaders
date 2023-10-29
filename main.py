@@ -58,7 +58,7 @@ while running:
         for enemy in enemies:
             if not enemy.check_collision(all_sprites, screen_width, screen_height):
                 game_over = True
-            enemy.update(running, player)
+            enemy.update(running)
         for bullet in bullets:
             bullet.check_collision(all_sprites, screen_width, screen_height)
         # Check for bullet-enemy collisions
